@@ -1,0 +1,17 @@
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 57px;
+    background: white;
+    position: fixed;
+}
+
+.s-margin-top{
+    margin-top:20px;
+}
+
+.pointer{
+    cursor: pointer;
+}
