@@ -1,0 +1,54 @@
+.allprojectsallgateways-container{
+    background: #F1FAFE;
+    border-radius: 10px;
+    padding:20px;
+    margin-top: 20px;
+    margin-left: 60px;
+    margin-right:60px;
+}
+
+.allprojectsallgateways{
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+.project-container{
+    display: flex;
+    justify-content:space-between;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.table-container{
+    display: none;
+}
+
+.table-container-show{
+    display: block;
+}
+
+table{
+    width: 100%;
+    text-align: center;
+    font-size:12px;
+}
+
+td, th{
+    padding:5px;
+}
+
+th{
+    background:white;
+}
+
+tr:nth-child(even){
+    background: white;
+}
+
+.total{
+    font-weight:bolder;
+}
