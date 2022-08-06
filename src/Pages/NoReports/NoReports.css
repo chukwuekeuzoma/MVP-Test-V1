@@ -1,0 +1,21 @@
+.no-reports-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 150px;
+}
+
+.sub-no-reports{
+    max-width: 400px;
+}
+
+.no-reports{
+    font-weight: bolder;
+}
+
+.currently{
+    color:#7E8299;
+    font-size: 10px;
+    margin-bottom: 25px;
+}
