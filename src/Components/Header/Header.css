@@ -1,0 +1,33 @@
+.header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:50px;
+    background: white;
+    border-bottom: 2px solid #F3F6F9;
+}
+
+.d-f{
+    display: flex;
+}
+.h-margin-left{
+    margin-left:20px;
+}
+
+.jd{
+ background: #F6CA65;
+ border-radius: 5px;
+ padding: 5px;
+ color: #FFFFFF;
+ font-weight: bolder;
+ font-size: 15px;
+}
+
+.john-doe{
+    color: #005B96;
+    font-weight: bolder;
+}
+
+.h-margin-right{
+    margin-right:20px;
+}
