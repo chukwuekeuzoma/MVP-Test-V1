@@ -12,7 +12,6 @@ function RouteWithLayout({ Layout, Component, ...rest }) {
   );
 }
 
-
 function App() {
   return (
     <BrowserRouter>
