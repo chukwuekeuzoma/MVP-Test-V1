@@ -17,7 +17,7 @@
 
 select {
   font-size: inherit;
-  padding: 5px 25px 5px 5px;
+  padding: 5px 21px 5px 5px;
   background: #1bc5bd;
   border: none;
   border-radius: 5px;
@@ -37,13 +37,38 @@ select {
   position: absolute;
   top: 0;
   right: 0;
-  height: 82%;
+  margin-right: -14px;
+  height: 80%;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.custom-arrow-two {
+  display: block;
+  background: #1bc5bd;
+  width: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: -27px;
+  height: 80%;
   border-radius: 5px;
   pointer-events: none;
 }
 
 .custom-arrow::before,
 .custom-arrow::after {
+  --size: 6px;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  right: 50%;
+}
+
+.custom-arrow-two::before,
+.custom-arrow-two::after {
   --size: 6px;
   content: "";
   position: absolute;
@@ -58,6 +83,13 @@ select {
   border-right: var(--size) solid transparent;
   border-top: var(--size) solid white;
 }
+
+.custom-arrow-two::before {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid white;
+}
+
 
 input[type="date"]{
     background: #1bc5bd;
@@ -88,6 +120,7 @@ input[type="date"]{
     font-weight: bold;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .dashboard-inner{
