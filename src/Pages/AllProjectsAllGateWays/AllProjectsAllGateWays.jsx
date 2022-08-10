@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../Context/Context";
 import "./AllProjectsAllGateWays.css";
 import NoReports from "../NoReports/NoReports";
+import AllProjectOneGateWay from "../AllProjectOneGateWay/AllProjectOneGateWay";
 
 function AllProjectsAllGateWays(props) {
-  const { projectValueGlobal,GateWayValueGlobal } = useContext(Context);
+  const { projectValueGlobal, GateWayValueGlobal } = useContext(Context);
 
   const [openProject, setOpenProject] = useState("");
   const [viewProject, setViewProject] = useState("NoReport");
@@ -18,13 +19,12 @@ function AllProjectsAllGateWays(props) {
   };
 
   console.log("projectValueGlobal", projectValueGlobal);
-  console.log("GateWayValueGlobal", GateWayValueGlobal)
-
-
+  console.log("GateWayValueGlobal", GateWayValueGlobal);
 
   return (
     <>
-      {projectValueGlobal === "All Project" && GateWayValueGlobal === "All Gateways"? (
+      {projectValueGlobal === "All Project" &&
+      GateWayValueGlobal === "All Gateways" ? (
         <>
           <div className="allprojectsallgateways-container">
             <div className="allprojectsallgateways">
@@ -119,6 +119,9 @@ function AllProjectsAllGateWays(props) {
             <div className="total">TOTAL: 10,065 USD</div>
           </div>
         </>
+      ) : projectValueGlobal === "All Project" &&
+        GateWayValueGlobal === "Gateway 1" ? (
+        <AllProjectOneGateWay />
       ) : (
         <NoReports />
       )}
