@@ -45,7 +45,7 @@ function DashBoard(props) {
       <div className="dashboard-inner">
         <div className="custom-select d-margin-right">
           <select onChange={e => setProjectValue(e.target.value)}>
-            <option value="">Select project</option>
+            <option value="Select project">Select project</option>
             <option value="All Project">All Project</option>
             {project.map(({ name }, index) => (
               <option value={name} key={index}>
@@ -57,7 +57,7 @@ function DashBoard(props) {
         </div>
         <div className="custom-select d-margin-right">
           <select onChange={ e => setGateWayValue(e.target.value)}>
-            <option value="">Select GateWay</option>
+            <option value="Select GateWay">Select GateWay</option>
             <option value="All Gateways">All Gateways</option>
             {gateWays.map(({ name }, index) => (
               <option value={name} key={index}>
