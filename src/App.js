@@ -1,6 +1,7 @@
 import React from "react";
 import HomeLayout from "./Layouts/HomeLayout";
 import {AllProjectsAllGateWays} from "./Pages"
+import Screen from "./Screen/Screen";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -20,7 +21,7 @@ function App() {
        <Route
             path="/"
             element={
-              <RouteWithLayout Layout={HomeLayout} Component={AllProjectsAllGateWays} />
+              <RouteWithLayout Layout={HomeLayout} Component={Screen} />
             }
           />
        </Routes>
