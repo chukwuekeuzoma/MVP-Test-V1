@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   AllProjectOneGateWay,
   NoReports,
-  AllProjectsAllGateWays
+  AllProjectsAllGateWays,
+  ProjectOneOneGateWay
 } from "../Pages";
 import { Context } from "../Context/Context";
 
@@ -20,6 +21,9 @@ function Screen(props) {
       ) : projectValueGlobal === "All Project" &&
         GateWayValueGlobal === "Gateway 1" ? (
         <AllProjectOneGateWay />
+      ) : projectValueGlobal === "Project 1" &&
+        GateWayValueGlobal === "Gateway 1" ? (
+        <ProjectOneOneGateWay />
       ) : (
         <NoReports />
       )}
