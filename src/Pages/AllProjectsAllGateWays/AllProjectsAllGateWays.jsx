@@ -3,7 +3,6 @@ import "./AllProjectsAllGateWays.css";
 
 function AllProjectsAllGateWays(props) {
   const [openProject, setOpenProject] = useState("");
-  const [viewProject, setViewProject] = useState("NoReport");
 
   const projectOneOpen = () => {
     setOpenProject("project1");
