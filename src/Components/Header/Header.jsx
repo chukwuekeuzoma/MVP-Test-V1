@@ -8,8 +8,8 @@ export default function Header(props) {
   const { userGlobal, firstNameSplit, lastNameSplit } = useContext(Context);
   const firstName = userGlobal.firstName;
   const lastName = userGlobal.lastName;
-  const firstLetterOfFirstName = firstNameSplit[0];
-  const firstLetterOfLastName = lastNameSplit[0];
+  const firstLetterOfFirstName = firstNameSplit;
+  const firstLetterOfLastName = lastNameSplit;
 
   return (
     <>
