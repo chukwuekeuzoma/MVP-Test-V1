@@ -3,36 +3,99 @@ import { Context } from "../../Context/Context";
 import axios from "axios";
 import "./DashBoard.css";
 
+
 function DashBoard(props) {
-  const { useProjectValue,useGetWayProjectValue } = useContext(Context);
+  const { useProjectValue,useGetWayProjectValue,User,FNameSplit,LNameSplit} = useContext(Context);
 
   const [project, setProject] = useState([]);
   const [projectValue, setProjectValue] = useState("");
   const [gateWayValue, setGateWayValue] = useState("");
   const [loaderCheck, setLoaderCheck] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [gateWays, setGetWays] = useState([]);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [project1Id, setProject1Id] = useState("");
+  const [project2Id, setProject2Id] = useState("");
+  const [gateWay1Id, setGateWay1Id] = useState("");
+  const [gateWay2Id, setGateWay2Id] = useState("");
+
+
+  const reportValues ={
+    from:fromDate,
+    to:toDate,
+    projectId:project1Id,
+    gatewayId:gateWay1Id
+  }
+
+  const headersone = {
+    "Content-Type": "application/json",
+  };
+
+  const getReports = async () => {
+    try {
+      // setLoaderOne(true);
+      const response = await axios.post(
+        "report",
+        JSON.stringify(reportValues),
+        {
+          headers: headersone,
+        }
+      );
+      console.log(response);
+      setSuccess("report gotten");
+      setError("");
+    } catch (e) {
+      setError(e);
+      setSuccess("");
+    }
+    // setLoaderOne(false);
+  };
+ 
 
   const getProjects = async () => {
     let response = await axios.get("projects");
     setProject(response.data.data);
+    setProject1Id(response.data.data[0]["projectId"])
+    setProject2Id(response.data.data[1]["projectId"])
   };
+
+  const getUsers = async () => {
+    let response = await axios.get("users");
+    User(response.data.data[0])
+    FNameSplit(response.data.data[0].firstName.split(''))
+    LNameSplit(response.data.data[0].lastName.split(''))
+  }
 
   const getGateWays = async () => {
     let response = await axios.get("gateways");
     setGetWays(response.data.data);
+    setGateWay1Id(response.data.data[0]["gatewayId"])
+    setGateWay2Id(response.data.data[1]["gatewayId"])
   };
 
   useEffect(() => {
     getProjects();
     getGateWays();
+    getUsers();
   }, []);
 
+  
   const collectValue = () => {
     useProjectValue(projectValue);
-    useGetWayProjectValue(gateWayValue)
+    useGetWayProjectValue(gateWayValue);
+    getReports();
   };
 
-  // console.log();
+  // console.log("from",fromDate);
+  // console.log("from",toDate);
+  // console.log("project1Id",project1Id)
+  // console.log("project2Id",project2Id)
+  // console.log("gateWay1Id",gateWay1Id)
+  // console.log("gateWay2Id",gateWay2Id)
+
+
 
   return (
     <div className="dashboard-container">
@@ -71,13 +134,13 @@ function DashBoard(props) {
           <label htmlFor="date" className="date-form">
             from
           </label>
-          <input type="date" />
+          <input type="date" min="2021-01-01" max="2021-12-31" onChange={(e)=>setFromDate(e.target.value)}/>
         </div>
         <div className="d-margin-right">
           <label htmlFor="date" className="date-form">
             to
           </label>
-          <input type="date" />
+          <input type="date" min="2021-01-01" max="2021-12-31" onChange={(e)=>setToDate(e.target.value)}/>
         </div>
         <div className="generate-report d-margin-right" onClick={collectValue}>
           <div>Generate report</div>
