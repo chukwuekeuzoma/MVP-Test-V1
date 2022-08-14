@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../../Context/Context";
 import "./AllProjectOneGateWay.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
