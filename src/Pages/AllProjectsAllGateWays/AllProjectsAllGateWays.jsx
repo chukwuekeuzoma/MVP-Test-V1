@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./AllProjectsAllGateWays.css";
+import { Context } from "../../Context/Context";
+import moment from "moment";
 
 function AllProjectsAllGateWays(props) {
+  const { reportsForPRojectOne, reportsForPRojectTwo } = useContext(Context);
   const [openProject, setOpenProject] = useState("");
 
   const projectOneOpen = () => {
@@ -11,6 +14,12 @@ function AllProjectsAllGateWays(props) {
   const projectTwoOpen = () => {
     setOpenProject("project2");
   };
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0
+  });
 
   return (
     <>
@@ -39,24 +48,16 @@ function AllProjectsAllGateWays(props) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>01/21/2021</td>
-                <td>Gateway 2</td>
-                <td>a732b</td>
-                <td>3964 USD</td>
-              </tr>
-              <tr>
-                <td>01/21/2021</td>
-                <td>Gateway 2</td>
-                <td>a732b</td>
-                <td>3964 USD</td>
-              </tr>
-              <tr>
-                <td>01/21/2021</td>
-                <td>Gateway 2</td>
-                <td>a732b</td>
-                <td>3964 USD</td>
-              </tr>
+              {reportsForPRojectOne.map(
+                ({ amount, created, paymentId }, index) => (
+                  <tr key={index}>
+                    <td>{moment(created).format("MM-DD-YYYY")}</td>
+                    <td>Gateway {index + 1}</td>
+                    <td>{paymentId}</td>
+                    <td>{formatter.format(amount)}</td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>
@@ -81,24 +82,14 @@ function AllProjectsAllGateWays(props) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>01/21/2021</td>
-                <td>Gateway 2</td>
-                <td>a732b</td>
-                <td>3964 USD</td>
-              </tr>
-              <tr>
-                <td>01/21/2021</td>
-                <td>Gateway 2</td>
-                <td>a732b</td>
-                <td>3964 USD</td>
-              </tr>
-              <tr>
-                <td>01/21/2021</td>
-                <td>Gateway 2</td>
-                <td>a732b</td>
-                <td>3964 USD</td>
-              </tr>
+              {reportsForPRojectTwo.map(({ amount, created, paymentId }, index) => (
+                <tr key={index}>
+                  <td>{moment(created).format("MM-DD-YYYY")}</td>
+                  <td>Gateway {index + 1}</td>
+                  <td>{paymentId}</td>
+                  <td>{formatter.format(amount)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
