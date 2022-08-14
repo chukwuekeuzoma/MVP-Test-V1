@@ -8,6 +8,8 @@ export default function ContextProvider(props) {
   const [firstNameSplit, setFirstNameSplit] = useState([]);
   const [lastNameSplit, setLastNameSplit] = useState([]);
   const [userGlobal, setUserGlobal] = useState([]);
+  const [reportsForPRojectOne, setReportsForPRojectOne] = useState([]);
+  const [reportsForPRojectTwo, setReportsForPRojectTwo] = useState([]);
 
   function useProjectValue(props) {
     setprojectValueGlobal(props);
@@ -29,17 +31,30 @@ export default function ContextProvider(props) {
     setLastNameSplit(props)
   }
 
+  function useReportsForPRojectOne (props) {
+    setReportsForPRojectOne(props)
+  }
+
+  function useReportsForPRojectTwo (props) {
+    setReportsForPRojectTwo(props)
+  }
+
   const value = {
     projectValueGlobal,
     GateWayValueGlobal,
     userGlobal,
     firstNameSplit,
     lastNameSplit,
+    reportsForPRojectOne,
+    reportsForPRojectTwo,
     useProjectValue,
     useGetWayProjectValue,
     User,
     FNameSplit,
-    LNameSplit
+    LNameSplit,
+    useReportsForPRojectOne,
+    useReportsForPRojectTwo
+   
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;
