@@ -2,10 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../Context/Context";
 import axios from "axios";
 import "./DashBoard.css";
-
+import { TailSpin } from "react-loader-spinner";
 
 function DashBoard(props) {
-  const { useProjectValue,useGetWayProjectValue,User,FNameSplit,LNameSplit} = useContext(Context);
+  const {
+    useProjectValue,
+    useGetWayProjectValue,
+    User,
+    FNameSplit,
+    LNameSplit,
+    useReportsForPRojectOne,
+    useReportsForPRojectTwo
+  } = useContext(Context);
 
   const [project, setProject] = useState([]);
   const [projectValue, setProjectValue] = useState("");
@@ -21,58 +29,83 @@ function DashBoard(props) {
   const [gateWay1Id, setGateWay1Id] = useState("");
   const [gateWay2Id, setGateWay2Id] = useState("");
 
-
-  const reportValues ={
-    from:fromDate,
-    to:toDate,
-    projectId:project1Id,
-    gatewayId:gateWay1Id
-  }
-
-  const headersone = {
-    "Content-Type": "application/json",
+  const reportValuesForPRojectOne = {
+    from: fromDate,
+    to: toDate,
+    projectId: project1Id,
+    gatewayId: gateWay1Id
   };
 
-  const getReports = async () => {
+  const reportValuesForPRojectTwo = {
+    from: fromDate,
+    to: toDate,
+    projectId: project2Id,
+    gatewayId: gateWay2Id
+  };
+
+  const headersone = {
+    "Content-Type": "application/json"
+  };
+
+  const getReportsForPRojectOne = async () => {
     try {
-      // setLoaderOne(true);
+      setLoaderCheck(true);
       const response = await axios.post(
         "report",
-        JSON.stringify(reportValues),
+        JSON.stringify(reportValuesForPRojectOne),
         {
-          headers: headersone,
+          headers: headersone
         }
       );
-      console.log(response);
+      useReportsForPRojectOne(response.data.data);
       setSuccess("report gotten");
       setError("");
     } catch (e) {
       setError(e);
       setSuccess("");
     }
-    // setLoaderOne(false);
+    setLoaderCheck(false);
   };
- 
+
+  const getReportsForPRojectTwo = async () => {
+    try {
+      setLoaderCheck(true);
+      const response = await axios.post(
+        "report",
+        JSON.stringify(reportValuesForPRojectTwo),
+        {
+          headers: headersone
+        }
+      );
+      useReportsForPRojectTwo(response.data.data);
+      setSuccess("report gotten");
+      setError("");
+    } catch (e) {
+      setError(e);
+      setSuccess("");
+    }
+    setLoaderCheck(false);
+  };
 
   const getProjects = async () => {
     let response = await axios.get("projects");
     setProject(response.data.data);
-    setProject1Id(response.data.data[0]["projectId"])
-    setProject2Id(response.data.data[1]["projectId"])
+    setProject1Id(response.data.data[0]["projectId"]);
+    setProject2Id(response.data.data[1]["projectId"]);
   };
 
   const getUsers = async () => {
     let response = await axios.get("users");
-    User(response.data.data[0])
-    FNameSplit(response.data.data[0].firstName.split(''))
-    LNameSplit(response.data.data[0].lastName.split(''))
-  }
+    User(response.data.data[0]);
+    FNameSplit(response.data.data[0].firstName.charAt(0));
+    LNameSplit(response.data.data[0].lastName.charAt(0));
+  };
 
   const getGateWays = async () => {
     let response = await axios.get("gateways");
     setGetWays(response.data.data);
-    setGateWay1Id(response.data.data[0]["gatewayId"])
-    setGateWay2Id(response.data.data[1]["gatewayId"])
+    setGateWay1Id(response.data.data[0]["gatewayId"]);
+    setGateWay2Id(response.data.data[1]["gatewayId"]);
   };
 
   useEffect(() => {
@@ -81,11 +114,11 @@ function DashBoard(props) {
     getUsers();
   }, []);
 
-  
   const collectValue = () => {
     useProjectValue(projectValue);
     useGetWayProjectValue(gateWayValue);
-    getReports();
+    getReportsForPRojectOne();
+    getReportsForPRojectTwo();
   };
 
   // console.log("from",fromDate);
@@ -94,8 +127,6 @@ function DashBoard(props) {
   // console.log("project2Id",project2Id)
   // console.log("gateWay1Id",gateWay1Id)
   // console.log("gateWay2Id",gateWay2Id)
-
-
 
   return (
     <div className="dashboard-container">
@@ -119,7 +150,7 @@ function DashBoard(props) {
           <span className="custom-arrow"></span>
         </div>
         <div className="custom-select d-margin-right">
-          <select onChange={ e => setGateWayValue(e.target.value)}>
+          <select onChange={e => setGateWayValue(e.target.value)}>
             <option value="Select GateWay">Select GateWay</option>
             <option value="All Gateways">All Gateways</option>
             {gateWays.map(({ name }, index) => (
@@ -134,16 +165,40 @@ function DashBoard(props) {
           <label htmlFor="date" className="date-form">
             from
           </label>
-          <input type="date" min="2021-01-01" max="2021-12-31" onChange={(e)=>setFromDate(e.target.value)}/>
+          <input
+            type="date"
+            min="2021-01-01"
+            max="2021-12-31"
+            onChange={e => setFromDate(e.target.value)}
+          />
         </div>
         <div className="d-margin-right">
           <label htmlFor="date" className="date-form">
             to
           </label>
-          <input type="date" min="2021-01-01" max="2021-12-31" onChange={(e)=>setToDate(e.target.value)}/>
+          <input
+            type="date"
+            min="2021-01-01"
+            max="2021-12-31"
+            onChange={e => setToDate(e.target.value)}
+          />
         </div>
         <div className="generate-report d-margin-right" onClick={collectValue}>
-          <div>Generate report</div>
+          <div>
+            {loaderCheck ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "10px"
+                }}
+              >
+                <TailSpin color="#ffff" height={10} width={10} />
+              </div>
+            ) : (
+              <div>Generate report</div>
+            )}
+          </div>
         </div>
       </div>
     </div>
