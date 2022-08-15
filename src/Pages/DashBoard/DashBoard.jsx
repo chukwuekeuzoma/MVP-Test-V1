@@ -12,7 +12,8 @@ function DashBoard(props) {
     FNameSplit,
     LNameSplit,
     useReportsForPRojectOne,
-    useReportsForPRojectTwo
+    useReportsForPRojectTwo,
+    useProject1AllProjectsGateWay1
   } = useContext(Context);
 
   const [project, setProject] = useState([]);
@@ -28,6 +29,7 @@ function DashBoard(props) {
   const [project2Id, setProject2Id] = useState("");
   const [gateWay1Id, setGateWay1Id] = useState("");
   const [gateWay2Id, setGateWay2Id] = useState("");
+  
 
   const reportValuesForPRojectOne = {
     from: fromDate,
@@ -42,6 +44,20 @@ function DashBoard(props) {
     projectId: project2Id,
     gatewayId: gateWay2Id
   };
+
+  const Project1AllProjectsGateWay1 = {
+    from: fromDate,
+    to: toDate,
+    projectId: project1Id,
+    gatewayId: gateWay1Id
+  }
+
+  const Project2AllProjectsGateWay1 = {
+    from: fromDate,
+    to: toDate,
+    projectId: project2Id,
+    gatewayId: gateWay1Id
+  }
 
   const headersone = {
     "Content-Type": "application/json"
@@ -87,6 +103,26 @@ function DashBoard(props) {
     setLoaderCheck(false);
   };
 
+  const getproject1AllProjectsGateWay1 = async () => {
+    try {
+      setLoaderCheck(true);
+      const response = await axios.post(
+        "report",
+        JSON.stringify(Project1AllProjectsGateWay1),
+        {
+          headers: headersone
+        }
+      );
+      useProject1AllProjectsGateWay1(response.data.data);
+      setSuccess("report gotten");
+      setError("");
+    } catch (e) {
+      setError(e);
+      setSuccess("");
+    }
+    setLoaderCheck(false);
+  };
+
   const getProjects = async () => {
     let response = await axios.get("projects");
     setProject(response.data.data);
@@ -119,6 +155,7 @@ function DashBoard(props) {
     useGetWayProjectValue(gateWayValue);
     getReportsForPRojectOne();
     getReportsForPRojectTwo();
+    getproject1AllProjectsGateWay1();
   };
 
   // console.log("from",fromDate);
