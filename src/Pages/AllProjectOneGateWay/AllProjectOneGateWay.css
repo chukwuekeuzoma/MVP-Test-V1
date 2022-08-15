@@ -1,9 +1,9 @@
-.allprojectonegateway-main-container {
+.allgatewayproject1-main-container {
   display: flex;
   justify-content: space-around;
 }
 
-.allprojectonegateway-container {
+.allgatewayproject1-container {
   background: #f1fafe;
   border-radius: 10px;
   width: 600px;
@@ -20,13 +20,13 @@
   margin-top: 100px;
 }
 
-.allprojectonegateway-container {
+.allgatewayproject1-container {
   background: #f1fafe;
   border-radius: 10px;
   padding: 20px;
 }
 
-.allprojectoneonegateway-total-container {
+.allgatewayproject1-total-container {
   background: #f1fafe;
   border-radius: 10px;
   padding: 20px;
@@ -34,7 +34,7 @@
   width: 100%;
 }
 
-.allprojectonegateway {
+.allgatewayproject1 {
   font-weight: bolder;
   margin-bottom: 20px;
 }
