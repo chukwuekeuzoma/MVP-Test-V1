@@ -11,6 +11,9 @@ export default function ContextProvider(props) {
   const [reportsForPRojectOne, setReportsForPRojectOne] = useState([]);
   const [reportsForPRojectTwo, setReportsForPRojectTwo] = useState([]);
   const [project1AllProjectsGateWay1, setProject1AllProjectsGateWay1] = useState([]);
+  const [project2AllProjectsGateWay1, setProject2AllProjectsGateWay1] = useState([]);
+  const [project1AllGateWay1, setProject1AllGateWay1] = useState([]);
+  const [project1AllGateWay2, setProject1AllGateWay2] = useState([]);
 
   function useProjectValue(props) {
     setprojectValueGlobal(props);
@@ -44,6 +47,18 @@ export default function ContextProvider(props) {
     setProject1AllProjectsGateWay1(props)
   }
 
+  function useProject2AllProjectsGateWay1 (props) {
+    setProject2AllProjectsGateWay1(props)
+  }
+
+  function useProject1AllGateWay1 (props) {
+    setProject1AllGateWay1(props)
+  }
+
+  function useProject1AllGateWay2 (props) {
+    setProject1AllGateWay2(props)
+  }
+
   const value = {
     projectValueGlobal,
     GateWayValueGlobal,
@@ -53,6 +68,9 @@ export default function ContextProvider(props) {
     reportsForPRojectOne,
     reportsForPRojectTwo,
     project1AllProjectsGateWay1,
+    project2AllProjectsGateWay1,
+    project1AllGateWay1,
+    project1AllGateWay2,
     useProjectValue,
     useGetWayProjectValue,
     User,
@@ -60,7 +78,10 @@ export default function ContextProvider(props) {
     LNameSplit,
     useReportsForPRojectOne,
     useReportsForPRojectTwo,
-    useProject1AllProjectsGateWay1
+    useProject1AllProjectsGateWay1,
+    useProject2AllProjectsGateWay1,
+    useProject1AllGateWay1,
+    useProject1AllGateWay2
    
   };
 
