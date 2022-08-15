@@ -8,7 +8,10 @@ import moment from "moment";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function AllProjectOneGateWay(props) {
-  const { project1AllProjectsGateWay1 } = useContext(Context);
+  const {
+    project1AllProjectsGateWay1,
+    project2AllProjectsGateWay1
+  } = useContext(Context);
 
   const [openProject, setOpenProject] = useState("");
 
@@ -20,15 +23,24 @@ function AllProjectOneGateWay(props) {
     setOpenProject("project2");
   };
 
-  console.log(project1AllProjectsGateWay1);
-
-  //sum of project1AllProjectsGateWay1 
+  //sum of project1AllProjectsGateWay1
   const sumTotalOfproject1AllProjectsGateWay1 = project1AllProjectsGateWay1.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue.amount;
     },
     0
   );
+
+  //sum of project2AllProjectsGateWay1
+  const sumTotalOfproject2AllProjectsGateWay1 = project2AllProjectsGateWay1.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue.amount;
+    },
+    0
+  );
+
+  // sum of both
+  const sumTotal = sumTotalOfproject1AllProjectsGateWay1 + sumTotalOfproject2AllProjectsGateWay1;
 
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -41,7 +53,10 @@ function AllProjectOneGateWay(props) {
     datasets: [
       {
         label: "# of Votes",
-        data: [12, 19],
+        data: [
+          sumTotalOfproject1AllProjectsGateWay1 * 0.01,
+          sumTotalOfproject2AllProjectsGateWay1 * 0.01
+        ],
         backgroundColor: ["#A259FF", "#F24E1E", "#FFC107", " #6497B1"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
         borderWidth: 0
@@ -90,19 +105,24 @@ function AllProjectOneGateWay(props) {
                 </tr>
               </thead>
               <tbody>
-                {project1AllProjectsGateWay1.map(({ amount, created, paymentId }, index) => (
-                <tr key={index}>
-                  <td>{moment(created).format("MM-DD-YYYY")}</td>
-                  <td>{paymentId}</td>
-                  <td>{formatter.format(amount)}</td>
-                </tr>
-                ))}
+                {project1AllProjectsGateWay1.map(
+                  ({ amount, created, paymentId }, index) => (
+                    <tr key={index}>
+                      <td>{moment(created).format("MM-DD-YYYY")}</td>
+                      <td>{paymentId}</td>
+                      <td>{formatter.format(amount)}</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </div>
           <div className="project-container" onClick={projectTwoOpen}>
             <div>Project 2</div>
-            <div>TOTAL: 6,065 USD</div>
+            <div>
+              TOTAL: &nbsp;
+              {formatter.format(sumTotalOfproject2AllProjectsGateWay1)}
+            </div>
           </div>
           <div
             className={
@@ -115,30 +135,20 @@ function AllProjectOneGateWay(props) {
               <thead>
                 <tr>
                   <th>Date</th>
-                  <th>Gateway</th>
                   <th>Transaction ID</th>
                   <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>01/21/2021</td>
-                  <td>Gateway 2</td>
-                  <td>a732b</td>
-                  <td>3964 USD</td>
-                </tr>
-                <tr>
-                  <td>01/21/2021</td>
-                  <td>Gateway 2</td>
-                  <td>a732b</td>
-                  <td>3964 USD</td>
-                </tr>
-                <tr>
-                  <td>01/21/2021</td>
-                  <td>Gateway 2</td>
-                  <td>a732b</td>
-                  <td>3964 USD</td>
-                </tr>
+                {project2AllProjectsGateWay1.map(
+                  ({ amount, created, paymentId }, index) => (
+                    <tr key={index}>
+                      <td>{moment(created).format("MM-DD-YYYY")}</td>
+                      <td>{paymentId}</td>
+                      <td>{formatter.format(amount)}</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </div>
@@ -147,7 +157,7 @@ function AllProjectOneGateWay(props) {
       <div className="doughnut-container">
         <Doughnut data={data} options={option} />
         <div className="allprojectoneonegateway-total-container">
-          <div className="total">TOTAL: 10,065 USD</div>
+          <div className="total">GATEWAY TOTAL: &nbsp;{formatter.format(sumTotal)}</div>
         </div>
       </div>
     </div>
