@@ -15,6 +15,25 @@ function AllProjectsAllGateWays(props) {
     setOpenProject("project2");
   };
 
+  //sum of Project1
+  const sumTotalUnProjectOneAmount = reportsForPRojectOne.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue.amount;
+    },
+    0
+  );
+
+  // sum of project2
+  const sumTotalUnProjecTwoAmount = reportsForPRojectTwo.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue.amount;
+    },
+    0
+  );
+
+  // sum of both
+  const sumTotal = sumTotalUnProjectOneAmount + sumTotalUnProjecTwoAmount;
+
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -29,7 +48,10 @@ function AllProjectsAllGateWays(props) {
         </div>
         <div className="project-container" onClick={projectOneOpen}>
           <div>Project 1</div>
-          <div>TOTAL: 10,065 USD</div>
+          <div>
+            TOTAL:&nbsp;
+            {formatter.format(sumTotalUnProjectOneAmount)}
+          </div>
         </div>
         <div
           className={
@@ -63,7 +85,7 @@ function AllProjectsAllGateWays(props) {
         </div>
         <div className="project-container" onClick={projectTwoOpen}>
           <div>Project 2</div>
-          <div>TOTAL: 6,065 USD</div>
+          <div>TOTAL:&nbsp;{formatter.format(sumTotalUnProjecTwoAmount)}</div>
         </div>
         <div
           className={
@@ -82,20 +104,22 @@ function AllProjectsAllGateWays(props) {
               </tr>
             </thead>
             <tbody>
-              {reportsForPRojectTwo.map(({ amount, created, paymentId }, index) => (
-                <tr key={index}>
-                  <td>{moment(created).format("MM-DD-YYYY")}</td>
-                  <td>Gateway {index + 1}</td>
-                  <td>{paymentId}</td>
-                  <td>{formatter.format(amount)}</td>
-                </tr>
-              ))}
+              {reportsForPRojectTwo.map(
+                ({ amount, created, paymentId }, index) => (
+                  <tr key={index}>
+                    <td>{moment(created).format("MM-DD-YYYY")}</td>
+                    <td>Gateway {index + 1}</td>
+                    <td>{paymentId}</td>
+                    <td>{formatter.format(amount)}</td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>
       </div>
       <div className="allprojectsallgateways-container">
-        <div className="total">TOTAL: 10,065 USD</div>
+        <div className="total">TOTAL: &nbsp;{formatter.format(sumTotal)}</div>
       </div>
     </>
   );
